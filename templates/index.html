@@ -1,0 +1,41 @@
+{% extends './base.html'%}
+
+{% block title %}
+<title> TODO list </title>
+{% endblock %}
+
+{% block body %}
+<h1>Test app on Python+Flask+Mysql</h1>
+<hr>
+<form action="/task" method="post">
+	<div class="form-group">
+		<label for=""></label>
+		<input type="text" class="form-control" name="task" required>
+	</div>
+	<button class="submit">Save</button>
+</form>
+
+<br>
+<h2> Tasks </h2>
+<hr>
+<ul>
+	{% for task in t %}
+		<li>
+			{% if task.status == 'complete' %}
+			<span style="text-decoration: line-through">
+			{% else %}
+			<span>
+			{% endif %}
+			{{ task.task }} - 
+			</span>
+			{% if task.status == 'complete' %}
+			<a href="/uncomplete/{{ task.idTask }}">Todo</a> |
+			{% else %}
+			<a href="/complete/{{ task.idTask }}">Done</a> |
+			{% endif %}
+			<a href="/deletetask/{{ task.idTask }}">Remove</a> |
+			<a href="/updatetask/{{ task.idTask }}">Edit</a>
+		</li>
+	{% endfor %}
+</ul>
+{% endblock %}
